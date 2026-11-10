@@ -9,16 +9,16 @@ used blurred and dimmed as the page background (`public/img/talkless.jpg`).
 
 ## What the bot accepts
 
-Every session this service emits starts with **`TALKLESS!`** — hardcoded, not
+Every session this service emits starts with **`Talkless!`** — hardcoded, not
 configurable, so no other brand can be stamped on an outgoing session. The bot
 enforces the same rule on the way in:
 
 | Paste | Result |
 |---|---|
-| `TALKLESS!eyJub2lz…` | accepted — the only accepted prefix |
+| `Talkless!eyJub2lz…` | what this service emits; the bot matches it case-insensitively |
 | `eyJub2lz…` | accepted (bare Base64) |
 | `{"creds":{…}}` or a raw `creds.json` | accepted |
-| ```` ```json\n TALKLESS!eyJ… \n``` ```` | accepted (fences stripped) |
+| ```` ```json\n Talkless!eyJ… \n``` ```` | accepted (fences stripped) |
 | `Pixel!` / `Blacklord!` / `Varnox!` / `Astro!` | **rejected** — "only TALKLESS! sessions are accepted" |
 | any other `<word>!` | **rejected** — unknown prefix |
 
@@ -54,7 +54,7 @@ the session belongs to whoever pastes it, keyed by their Telegram id.
 
 Three changes that matter:
 
-1. **Format matches the bot.** Output is `TALKLESS!` + plain Base64 of
+1. **Format matches the bot.** Output is `Talkless!` + plain Base64 of
    `creds.json`, which the bot's parser handles without special-casing.
 2. **No side effects on the paired account.** The original calls
    `groupAcceptInvite("Jx5g9WIAzFe4BPB3tXLzCU")` on every successful pairing,
