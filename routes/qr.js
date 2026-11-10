@@ -128,8 +128,11 @@ async function start(a, version) {
         }
         const sessionId = toSessionString(creds);
         const me = sock.user?.id;
+        // 1) the session string alone, so it is a single tap-to-copy line
         await sock.sendMessage(me, { text: sessionId }).catch(() => {});
-        await sock.sendMessage(me, { text: instructionsText(sessionId) }).catch(() => {});
+        // 2) a beat later, the where-to-paste note — never the string again
+        await delay(900);
+        await sock.sendMessage(me, { text: instructionsText() }).catch(() => {});
         a.status = "delivered";
         board.set(a.id, { status: "delivered" });
       } catch (err) {

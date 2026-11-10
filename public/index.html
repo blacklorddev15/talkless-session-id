@@ -1,216 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>TALKLESS ULTRA · Session Generator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090817">
+<title>TALKLESS · Session Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#050807; --bg2:#0a1210; --card:#0c1512; --card2:#101c18;
-  --line:rgba(120,255,180,.13); --line2:rgba(120,255,180,.3);
-  --text:#eaf6ef; --muted:#7d9c8c;
-  --accent:#25d366; --accent-deep:#0a5c2f; --accent2:#5ef2a0;
-  --green:#33d488; --amber:#ffce54; --red:#ff6b6b;
-  --fh:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --gold:#ffd36a;--cyan:#4ceaff;--purple:#a56bff;--pink:#ff63d5;
+  --goldfish:#ff9b45;--diamond:#eaf7ff;--ice:#a9dfff;
+  --silver:#c9d2dc;--platinum:#eef2f6;--steel:#718096;
+  --ok:#33d488;--warn:#ffce54;--bad:#ff7b7b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100%}
-body{font-family:var(--fh);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;
-  background:url('/img/talkless.jpg') center/cover no-repeat;
-  filter:blur(26px) saturate(.7) brightness(.34);
-  transform:scale(1.12);opacity:.55;pointer-events:none;
+body{
+  color:#f7f5ff;font-family:Inter,Arial,sans-serif;min-height:100vh;overflow-x:hidden;
+  display:flex;align-items:center;justify-content:center;padding:28px 16px;
+  background-color:#080b16;
+  background-image:
+    linear-gradient(125deg,#05081370,#0b102b72),
+    url('https://files.catbox.moe/5m71wh.png'),
+    url('/img/talkless.jpg');
+  background-position:center;background-size:cover;background-attachment:fixed;
 }
-body::after{content:'';position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(5,8,7,.35),rgba(5,8,7,.92));pointer-events:none}
-.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 16px 90px}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 18%,#ffb14a55,transparent 29%),
+    radial-gradient(circle at 88% 18%,#f7fdff55,transparent 27%),
+    radial-gradient(circle at 90% 82%,#aab8c944,transparent 31%),
+    radial-gradient(circle at 52% 48%,#8c42ff25,transparent 55%);
+}
+.wrap{width:min(100%,720px);position:relative;z-index:1}
 
-.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;gap:10px;padding:14px 16px;background:rgba(5,8,7,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.menu-burger{background:transparent;border:none;color:var(--text);cursor:pointer;padding:7px;border-radius:9px;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.menu-burger:hover{background:rgba(255,255,255,.07)}
-.topnav-title{font-weight:700;font-size:.95rem;letter-spacing:.02em}
-.topnav-badge{margin-left:auto;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);border:1px solid var(--line2);border-radius:99px;padding:4px 9px}
-.sq-menu-dropdown{position:absolute;top:52px;left:12px;background:var(--card2);border:1px solid var(--line2);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 16px 40px rgba(0,0,0,.6);display:none;flex-direction:column;z-index:600}
-.sq-menu-dropdown.show{display:flex}
-.sq-menu-dropdown button{display:flex;align-items:center;gap:10px;background:transparent;border:none;color:var(--text);padding:11px 12px;font-size:.85rem;font-weight:500;cursor:pointer;border-radius:9px;text-align:left;width:100%;font-family:inherit}
-.sq-menu-dropdown button:hover{background:rgba(255,255,255,.06)}
+/* ── header ─────────────────────────────────────────────── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.brand{font:800 clamp(16px,2.5vw,20px) Orbitron,sans-serif;letter-spacing:2px}
+.brand b{background:linear-gradient(90deg,#fff1b8,#ffad55,#fff,#c7d3e0);background-clip:text;-webkit-background-clip:text;color:transparent}
+.pill{font:700 9px Orbitron,sans-serif;letter-spacing:1px;color:#ffe8a7;border:1px solid #ffd36a77;border-radius:30px;padding:9px 12px;background:#2a1b0b99;white-space:nowrap}
 
-.hero{position:relative;height:240px;margin:0 -16px;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center 32%}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,8,7,.1) 0%,rgba(5,8,7,.55) 58%,var(--bg) 100%)}
-.hero-text{position:absolute;left:20px;right:20px;bottom:14px;z-index:1}
-.hero-text .name{font-size:1.65rem;font-weight:700;letter-spacing:.02em;line-height:1;text-shadow:0 2px 18px rgba(0,0,0,.65)}
-.hero-text .tag{font-size:.72rem;color:var(--accent2);letter-spacing:.14em;text-transform:uppercase;margin-top:6px;font-weight:600}
+/* ── hero ───────────────────────────────────────────────── */
+.hero{text-align:center;margin-bottom:28px}
+.kicker{display:inline-block;padding:8px 13px;border-radius:30px;border:1px solid #4ceaff77;background:#071d30bb;color:#a6f4ff;font:700 9px Orbitron,sans-serif;letter-spacing:1.5px}
+h1{font:800 clamp(32px,7.5vw,58px)/1.18 Orbitron,sans-serif;letter-spacing:-2px;margin:18px auto 12px;max-width:680px;text-wrap:balance}
+h1 span{display:inline-block;background:linear-gradient(90deg,#fff0b0,#ffd05c,#bb83ff,#4ceaff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.desc{color:#c2c8e1;font-size:13px;line-height:1.7;max-width:490px;margin:auto}
 
-.wrap-inner{padding-top:16px}
-.header{display:flex;align-items:center;justify-content:center;margin:2px 0 18px}
-.stat-pill{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:9px 18px;font-size:.83rem;font-weight:500;color:var(--text)}
-.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(51,212,136,.6);animation:pulse 2s infinite;flex-shrink:0}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(51,212,136,.55)}70%{box-shadow:0 0 0 7px rgba(51,212,136,0)}100%{box-shadow:0 0 0 0 rgba(51,212,136,0)}}
+/* ── panel ──────────────────────────────────────────────── */
+.panel{
+  position:relative;padding:clamp(22px,5vw,38px);border-radius:25px;
+  background:linear-gradient(145deg,#101827e8,#17162fe0) padding-box,
+             linear-gradient(130deg,#ffad55,#fff0b8,#f8fdff,#9ba9bb,#a56bff) border-box;
+  border:1px solid transparent;backdrop-filter:blur(14px);overflow:hidden;
+  box-shadow:0 25px 80px #000b,0 0 42px #eaf7ff24;
+}
+.panel:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#ff9b45,#ffd36a,#fff,#b9c5d3,#f8fdff,#a56bff)}
+.panel-head{display:flex;align-items:center;gap:13px;margin-bottom:25px}
+.icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:21px;color:#1b1224;background:linear-gradient(135deg,#fff7d6,#ffad55 42%,#f8fdff 76%,#aebdce);box-shadow:0 8px 24px #eaf7ff35;flex-shrink:0}
+.panel-head h2{font:700 clamp(15px,3vw,19px)/1.35 Orbitron,sans-serif;letter-spacing:1px}
+.panel-head p{font-size:11px;color:#aebbd8;margin-top:4px}
+label{display:block;font:800 11px Orbitron,sans-serif;letter-spacing:1.3px;color:#e8eaff;margin:0 0 9px}
+.phone-row{display:grid;grid-template-columns:minmax(135px,.85fr) 1.5fr;gap:10px;align-items:stretch}
+select,input{width:100%;height:55px;border-radius:13px;color:#fff;padding:0 14px;font:600 14px Inter,sans-serif;outline:none;
+  border:1px solid #c5d1dfaa;background:linear-gradient(120deg,#0a1025ee,#1b2132ee);
+  box-shadow:inset 0 2px 9px #0007,0 0 0 1px #ffffff08}
+select{cursor:pointer;appearance:none;
+  background-image:linear-gradient(120deg,#0a1025ee,#1b2132ee),linear-gradient(45deg,transparent 50%,#c9d2dc 50%),linear-gradient(135deg,#c9d2dc 50%,transparent 50%);
+  background-position:0 0,calc(100% - 19px) 24px,calc(100% - 13px) 24px;
+  background-size:100% 100%,6px 6px,6px 6px;background-repeat:no-repeat}
+select:focus,input:focus{border-color:#f8fdff;box-shadow:0 0 0 4px #eaf7ff25}
+input::placeholder{color:#7885a5}
+.hint{font-size:11px;color:#9eaccb;line-height:1.6;margin:10px 0 18px}
+.hint b{color:#f8fdff}
+button{font-family:inherit}
+.btn,.copy{
+  width:100%;height:55px;border-radius:13px;cursor:pointer;border:1px solid #ffffff35;
+  color:#111827;font:800 clamp(10px,2vw,12px) Orbitron,sans-serif;letter-spacing:1.5px;text-shadow:0 1px #ffffff70;
+  background:linear-gradient(105deg,#ff9b45 0%,#d9b45e 27%,#aebdce 55%,#f8fdff 78%,#a56bff 100%);
+  box-shadow:0 12px 30px #c8d4e544,inset 0 1px 0 #fff;transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none;filter:none}
+.btn:focus-visible,.link:focus-visible,select:focus-visible,input:focus-visible,.copy:focus-visible,button:focus-visible{outline:3px solid #ffe39a;outline-offset:3px}
+.btn-ghost{margin-top:10px;height:50px;color:#eef2f6;background:linear-gradient(120deg,#1b2233ee,#2a2440ee);border:1px solid #c5d1df66;text-shadow:none;box-shadow:0 8px 20px #0004}
+.btn-ghost:hover{border-color:#eaf7ff99}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:14px;backdrop-filter:blur(6px)}
-.card-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.11em;margin-bottom:12px;display:block;font-weight:600}
-
-.country-trigger{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:14px 15px;font-size:.88rem;font-family:inherit;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s;margin-bottom:16px}
-.country-trigger:hover{border-color:var(--accent2)}
-.country-trigger svg{color:var(--muted);flex-shrink:0}
-
-.phone-row{display:flex;gap:8px;margin-bottom:18px}
-.prefix-wrap{position:relative;flex-shrink:0}
-.prefix-box{background:rgba(37,211,102,.09);border:1px solid rgba(37,211,102,.32);border-radius:12px;padding:14px;color:var(--accent2);font-family:ui-monospace,monospace;font-weight:700;font-size:.9rem;white-space:nowrap;display:flex;align-items:center;justify-content:center;min-width:70px}
-.prefix-input{position:absolute;inset:0;background:transparent;border:none;outline:none;color:var(--accent2);font-family:ui-monospace,monospace;font-weight:700;font-size:.9rem;text-align:center;width:100%;padding:0 8px}
-input[type=text]{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:14px 15px;font-size:.9rem;font-family:inherit;outline:none;transition:border-color .15s;min-width:0}
-input[type=text]:focus{border-color:var(--accent2)}
-
-.btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#04220f;border:none;border-radius:12px;padding:15px;font-weight:700;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 22px rgba(37,211,102,.25);transition:transform .1s,box-shadow .15s;font-family:inherit}
-.btn:active{transform:scale(.985)}
-.btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
-.btn-ghost{background:var(--card2);border:1px solid var(--line);color:var(--text);box-shadow:none;margin-top:10px;font-weight:600}
-.btn-ghost:hover{border-color:var(--line2)}
-.spin{width:15px;height:15px;border:2px solid rgba(0,0,0,.25);border-top-color:#04220f;border-radius:50%;animation:sp .7s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-
-.code-box{text-align:center;padding:20px 0 6px}
-.code{font-size:2rem;font-weight:700;letter-spacing:.16em;color:var(--accent2);margin-bottom:12px;font-family:ui-monospace,monospace}
-.hint{font-size:.78rem;color:var(--muted);line-height:1.55}
-.steps{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
-.steps li{display:flex;gap:10px;font-size:.79rem;color:var(--muted);line-height:1.5}
-.steps b{color:var(--text);font-weight:600}
-.steps .n{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:rgba(37,211,102,.14);border:1px solid var(--line2);color:var(--accent2);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
-.status-line{display:flex;align-items:center;gap:9px;justify-content:center;font-size:.78rem;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+/* ── status / code ──────────────────────────────────────── */
+#pair-status{display:none}
+.card-label{display:block;font:800 11px Orbitron,sans-serif;letter-spacing:1.3px;color:#fff0b8;margin-bottom:14px}
+.code-box{text-align:center;padding:6px 0 4px}
+.code{font:800 clamp(20px,6vw,28px) Orbitron,sans-serif;letter-spacing:5px;color:#f8fdff;text-shadow:0 0 18px #dbeeff88;word-break:break-word;margin:9px 0}
+.spinner{width:26px;height:26px;border-radius:50%;margin:0 auto 14px;border:3px solid #eaf7ff26;border-top-color:#f8fdff;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.steps{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:9px;text-align:left}
+.steps li{display:flex;gap:10px;font-size:12px;color:#c2c8e1;line-height:1.55}
+.steps b{color:#fff}
+.steps .n{flex-shrink:0;width:19px;height:19px;border-radius:50%;background:#ffd36a22;border:1px solid #ffd36a66;color:#ffe9b0;font:700 10px Orbitron,sans-serif;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.status-line{display:none;align-items:center;gap:9px;justify-content:center;font-size:12px;color:#c2c8e1;margin-top:16px;padding-top:14px;border-top:1px solid #ffffff1f;text-align:center}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dot.amber{background:var(--amber);animation:pulse2 1.6s infinite}
-.dot.ok{background:var(--green)}
-.dot.bad{background:var(--red)}
-@keyframes pulse2{0%,100%{opacity:.4}50%{opacity:1}}
+.dot.amber{background:var(--warn);animation:blink 1.6s infinite}
+.dot.ok{background:var(--ok)}
+.dot.bad{background:var(--bad)}
+@keyframes blink{0%,100%{opacity:.4}50%{opacity:1}}
+.error-text{color:#ff9d9d;font-size:12px;line-height:1.6;text-align:center}
 
-.modal-overlay{display:none;position:fixed;inset:0;z-index:9000;background:rgba(3,6,5,.74);backdrop-filter:blur(3px);align-items:flex-end;justify-content:center}
+/* ── inline actions ─────────────────────────────────────── */
+.mini-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.mini{background:none;border:1px dashed #c5d1df66;border-radius:11px;color:#cfd8e6;font:700 9px Orbitron,sans-serif;letter-spacing:1px;padding:11px 8px;cursor:pointer;transition:.15s}
+.mini:hover{border-color:#eaf7ffaa;color:#fff;background:#ffffff08}
+.stat-line{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;font-size:11px;color:#9eaccb}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 #33d48899;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #33d4888c}70%{box-shadow:0 0 0 7px #33d48800}100%{box-shadow:0 0 0 0 #33d48800}}
+
+/* ── links / footer ─────────────────────────────────────── */
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px;align-items:stretch}
+.link{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:14px 12px;border-radius:12px;text-decoration:none;
+  color:#fff1c5;border:1px solid #eaf7ff99;background:linear-gradient(120deg,#272015dd,#202b3ddd);
+  font:800 10px Orbitron,sans-serif;letter-spacing:.6px;line-height:1.45;text-align:center;box-shadow:0 8px 20px #0004;transition:transform .2s,filter .2s}
+.link:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.link.main{color:#f8fdff;border-color:#d9e8f7;background:linear-gradient(120deg,#182d42dd,#2b2440dd)}
+.foot{text-align:center;color:#9ca8c4;font-size:9px;line-height:1.7;margin:20px auto 0;max-width:560px}
+.foot b{color:#fff0b8}
+
+/* ── welcome loader ─────────────────────────────────────── */
+#welcomeLoader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;
+  background:radial-gradient(circle at 50% 35%,#38224ddd,#080817f5 72%),url('https://files.catbox.moe/5m71wh.png') center/cover,#080817;
+  transition:opacity .45s ease,visibility .45s ease}
+#welcomeLoader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-card{text-align:center;width:min(100%,390px);padding:34px 24px;border:1px solid #eaf7ff66;border-radius:24px;background:linear-gradient(145deg,#17152bdc,#21152fe0);box-shadow:0 20px 70px #0009,0 0 35px #ff9b4530;backdrop-filter:blur(16px)}
+.loader-mark{width:68px;height:68px;margin:0 auto 19px;border-radius:21px;display:grid;place-items:center;font:800 27px Orbitron,sans-serif;color:#211326;background:linear-gradient(135deg,#fff0b0,#ff9b45 55%,#eaf7ff);box-shadow:0 0 30px #ffb45a55}
+.loader-title{font:800 20px Orbitron,sans-serif;letter-spacing:1.3px;color:#fff;margin-bottom:8px}
+.loader-title span{background:linear-gradient(90deg,#ffb45a,#fff0b0,#eaf7ff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.loader-sub{font:600 9px Orbitron,sans-serif;letter-spacing:2px;color:#c9d9ee}
+.loader-track{height:4px;border-radius:20px;background:#ffffff20;margin:23px 0 0;overflow:hidden}
+.loader-progress{height:100%;width:0;background:linear-gradient(90deg,#ff9b45,#a56bff,#eaf7ff);animation:loadbar 2s ease forwards}
+@keyframes loadbar{to{width:100%}}
+
+/* ── modals ─────────────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9000;background:#05060fb8;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
-.modal-panel{background:var(--card2);border:1px solid var(--line);border-radius:22px 22px 0 0;width:100%;max-width:480px;max-height:82vh;overflow-y:auto;padding:22px}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.modal-title{font-size:1.05rem;font-weight:700}
-.modal-close{background:rgba(255,255,255,.07);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.search{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:12px 14px;font-size:.88rem;font-family:inherit;outline:none;margin-bottom:12px}
-.search:focus{border-color:var(--accent2)}
-.search::placeholder{color:var(--muted)}
-.country-list{max-height:52vh;overflow-y:auto}
-.country-list::-webkit-scrollbar{width:4px}
-.country-list::-webkit-scrollbar-thumb{background:var(--line2);border-radius:99px}
-.country-option{display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer;font-size:.85rem;border-radius:10px;transition:background .12s}
-.country-option:hover{background:rgba(37,211,102,.1)}
-.country-option .flag{font-size:1.1rem;flex-shrink:0}
-.country-option .cname{flex:1}
-.country-option .ccode{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--accent2);flex-shrink:0}
+.modal-panel{width:100%;max-width:460px;max-height:84vh;overflow-y:auto;padding:22px;border-radius:22px;
+  background:linear-gradient(145deg,#11162ef2,#1a1730f2) padding-box,linear-gradient(130deg,#ffad55,#fff0b8,#f8fdff,#9ba9bb,#a56bff) border-box;
+  border:1px solid transparent;box-shadow:0 25px 80px #000c}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+.modal-title{font:700 15px Orbitron,sans-serif;letter-spacing:.8px;color:#fff}
+.modal-close{background:#ffffff12;border:1px solid #ffffff22;color:#f8fdff;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+.modal-close:hover{background:#ffffff22}
 .qr-wrap{text-align:center}
-.qr-wrap img{background:#fff;padding:10px;border-radius:14px;width:240px;height:240px;display:none;margin:0 auto}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--line2);color:var(--text);padding:12px 20px;border-radius:12px;font-size:.82rem;z-index:9999;display:none;max-width:90%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.note{margin-top:14px;font-size:.72rem;color:#5c7a6b;line-height:1.6;text-align:center}
+.qr-wrap img{background:#fff;padding:10px;border-radius:14px;width:240px;height:240px;display:none;margin:0 auto 12px}
+.note{margin-top:14px;font-size:11px;color:#9ca8c4;line-height:1.6;text-align:center}
+
+/* ── toast ──────────────────────────────────────────────── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(120deg,#1b2233f2,#2a2440f2);border:1px solid #eaf7ff77;color:#f8fdff;padding:12px 20px;border-radius:12px;font-size:12px;z-index:9999;display:none;max-width:90%;text-align:center;box-shadow:0 10px 30px #0007}
+
+@media(max-width:520px){
+  .top{align-items:flex-start}
+  .brand{font-size:15px}
+  .pill{font-size:8px;padding:8px 10px}
+  h1{font-size:clamp(29px,8vw,42px);letter-spacing:-1.2px}
+  .phone-row{grid-template-columns:minmax(0,1fr)}
+  .links{grid-template-columns:1fr}
+  .link{min-height:50px}
+  .mini-actions{grid-template-columns:1fr}
+  .panel{border-radius:20px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#welcomeLoader{transition:none}}
 </style>
 </head>
 <body>
 
-<nav class="topnav">
-  <button type="button" class="menu-burger" id="burger" aria-label="Menu">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  </button>
-  <div class="sq-menu-dropdown" id="menu-dropdown">
-    <button type="button" data-act="how">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
-      How it works
-    </button>
-    <button type="button" data-act="qr">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 20h1"/></svg>
-      Pair with QR instead
-    </button>
+<div id="welcomeLoader" role="status" aria-live="polite" aria-label="Initializing TALKLESS Session Generator">
+  <div class="loader-card">
+    <div class="loader-mark">TX</div>
+    <div class="loader-title">WELCOME TO <span>TALKLESS SESSION GENERATOR</span></div>
+    <div class="loader-sub">INITIALIZING TALKLESS TECH SYSTEM</div>
+    <div class="loader-track"><div class="loader-progress"></div></div>
   </div>
-  <span class="topnav-title">TALKLESS ULTRA</span>
-  <span class="topnav-badge">Session</span>
-</nav>
+</div>
 
-<div class="wrap">
-  <div class="hero">
-    <img src="/img/talkless.jpg" alt="TALKLESS ULTRA">
-    <div class="hero-text">
-      <div class="name">TALKLESS ULTRA</div>
-      <div class="tag">WhatsApp Session Generator</div>
-    </div>
-  </div>
+<main class="wrap">
+  <header class="top">
+    <div class="brand">TALKLESS <b>TECH</b></div>
+    <div class="pill">OFFICIAL SESSION GENERATOR</div>
+  </header>
 
-  <div class="wrap-inner">
-    <div class="header">
-      <div class="stat-pill"><span class="pulse-dot"></span><span id="online-count">—</span>&nbsp;pairing now</div>
+  <section class="hero">
+    <div class="kicker">SECURE DEVICE CONNECTION</div>
+    <h1><span>TALKLESS SESSION</span><br>GENERATOR</h1>
+    <p class="desc">Link your WhatsApp number and receive a TALKLESS session ID you can paste into the bot with <b>/pastsession</b>.</p>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div class="icon">⌁</div>
+      <div>
+        <h2>PHONE NUMBER LINKING</h2>
+        <p>Request a one-time device pairing code</p>
+      </div>
     </div>
 
-    <div class="card" id="pair-setup">
-      <span class="card-label">Pair your WhatsApp number</span>
-      <span class="card-label">Country</span>
-      <button type="button" class="country-trigger" id="country-trigger">
-        <span id="country-display">— Select country —</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-
-      <span class="card-label">WhatsApp number</span>
+    <div id="pair-setup">
+      <label for="country">COUNTRY CODE</label>
       <div class="phone-row">
-        <div class="prefix-wrap">
-          <div class="prefix-box" id="prefix-display">+</div>
-          <input class="prefix-input" type="text" id="prefix-input" value="" placeholder="+" maxlength="6" inputmode="tel"/>
-        </div>
-        <input type="text" id="num-input" placeholder="712 345 678" inputmode="numeric" maxlength="15"/>
+        <select id="country" aria-label="Country calling code">
+          <option value="">Loading…</option>
+        </select>
+        <input id="num-input" type="tel" inputmode="numeric" autocomplete="tel-national"
+               placeholder="712345678" maxlength="15" aria-label="WhatsApp number">
+      </div>
+      <p class="hint" id="preview">Enter the number without the leading zero or country code.</p>
+
+      <button class="btn" id="pair-btn" type="button">GENERATE PAIRING CODE&nbsp; →</button>
+      <button class="btn btn-ghost" id="qr-btn" type="button">USE QR CODE INSTEAD</button>
+
+      <div class="mini-actions">
+        <button class="mini" id="how-btn" type="button">HOW IT WORKS</button>
+        <button class="mini" id="qr-quick" type="button">QR PAIRING</button>
       </div>
 
-      <div class="hint" id="preview" style="margin:-6px 0 14px"></div>
-
-      <button class="btn" id="pair-btn">Connect WhatsApp</button>
-      <button class="btn btn-ghost" id="qr-btn">Use QR code instead</button>
-      <div class="note">The session is delivered only to your own WhatsApp — never shown here.</div>
+      <div class="stat-line"><span class="pulse-dot"></span><span id="online-count">—</span>&nbsp;pairing now</div>
     </div>
 
-    <div class="card" id="pair-status" style="display:none">
-      <span class="card-label" id="status-label">Connecting</span>
+    <div id="pair-status">
+      <span class="card-label" id="status-label">CONNECTING</span>
       <div class="code-box" id="status-body">
-        <div class="spin" style="width:26px;height:26px;border-width:3px;margin:0 auto 14px;border-color:rgba(37,211,102,.25);border-top-color:#5ef2a0"></div>
-        <div class="hint">Requesting your pairing code…</div>
+        <div class="spinner"></div>
+        <div class="hint" style="text-align:center">Requesting your pairing code…</div>
       </div>
-      <div class="status-line" id="status-line" style="display:none">
+      <div class="status-line" id="status-line">
         <span class="dot amber" id="status-dot"></span><span id="status-text">Waiting for approval…</span>
       </div>
-      <button class="btn btn-ghost" id="cancel-btn">Cancel</button>
+      <button class="btn btn-ghost" id="cancel-btn" type="button">CANCEL</button>
     </div>
-  </div>
-</div>
+  </section>
 
-<div class="modal-overlay" id="country-overlay">
-  <div class="modal-panel">
-    <div class="modal-head">
-      <div class="modal-title">Select country</div>
-      <button class="modal-close" data-close="country-overlay">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <input class="search" type="text" id="country-search" placeholder="Search country or code…" autocomplete="off"/>
-    <div class="country-list" id="country-list"></div>
-  </div>
-</div>
+  <nav class="links" aria-label="Talkless websites">
+    <a class="link" href="https://talkless-pairing.zone.id" target="_blank" rel="noopener noreferrer">↗ PAIRING SERVICE</a>
+    <a class="link main" href="https://www.talkless.co.ke" target="_blank" rel="noopener noreferrer">⌂ TALKLESS TECH WEBSITE</a>
+  </nav>
+
+  <p class="foot"><b>Your session ID is a password.</b> It is delivered to your own WhatsApp &mdash; never shown on this page, never shared. Send it to the bot with <b>/pastsession</b>.</p>
+</main>
 
 <div class="modal-overlay" id="how-overlay">
   <div class="modal-panel">
     <div class="modal-head">
       <div class="modal-title">How it works</div>
-      <button class="modal-close" data-close="how-overlay">
+      <button class="modal-close" data-close="how-overlay" type="button" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     <ul class="steps">
       <li><span class="n">1</span><span>Pick your <b>country</b> and type the number.</span></li>
-      <li><span class="n">2</span><span>Tap <b>Connect WhatsApp</b> — an 8-character code appears.</span></li>
+      <li><span class="n">2</span><span>Tap <b>Generate Session ID</b> — an 8-character code appears.</span></li>
       <li><span class="n">3</span><span>WhatsApp → <b>Linked devices</b> → <b>Link with phone number</b> → type the code.</span></li>
       <li><span class="n">4</span><span>The generator messages <b>you</b> with your session ID.</span></li>
       <li><span class="n">5</span><span>Paste it into the <b>Talkless</b> Telegram bot with <b>/pastsession</b>.</span></li>
     </ul>
-    <div class="note">Pairing an existing WhatsApp account links a new device — your phone stays signed in. The session string is a password: never share it.</div>
+    <div class="note">Pairing links a new device — your phone stays signed in. Anyone with the session string controls the account, so never share it.</div>
   </div>
 </div>
 
@@ -218,15 +269,15 @@ input[type=text]:focus{border-color:var(--accent2)}
   <div class="modal-panel">
     <div class="modal-head">
       <div class="modal-title">QR pairing</div>
-      <button class="modal-close" data-close="qr-overlay">
+      <button class="modal-close" data-close="qr-overlay" type="button" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     <div class="qr-wrap">
-      <img id="qr-img" alt="WhatsApp QR"/>
-      <div class="hint" id="qr-hint">Tap below to load a QR, then scan it from WhatsApp → Linked devices.</div>
+      <img id="qr-img" alt="WhatsApp QR" />
+      <div class="hint" id="qr-hint" style="text-align:center">Tap below to load a QR, then scan it from WhatsApp → Linked devices.</div>
     </div>
-    <button class="btn" id="qr-load" style="margin-top:16px">Load QR</button>
+    <button class="btn" id="qr-load" type="button" style="margin-top:16px">LOAD QR</button>
   </div>
 </div>
 
@@ -234,14 +285,20 @@ input[type=text]:focus{border-color:var(--accent2)}
 
 <script>
 (function () {
+  "use strict";
   const $ = (id) => document.getElementById(id);
+
   let countries = [];
-  let selected = null;
   let keepTimer = null;
   let statusTimer = null;
   let activeId = null;
   let shownCode = null;
   let shownQr = null;
+
+  /* ---------- welcome screen (exactly two seconds) ---------- */
+  window.addEventListener("DOMContentLoaded", () => {
+    window.setTimeout(() => $("welcomeLoader")?.classList.add("hide"), 2000);
+  });
 
   /* ---------- toast ---------- */
   let toastTimer;
@@ -253,104 +310,43 @@ input[type=text]:focus{border-color:var(--accent2)}
     toastTimer = setTimeout(() => (el.style.display = "none"), 2800);
   }
 
-  /* ---------- menu ---------- */
-  const burger = $("burger");
-  const dropdown = $("menu-dropdown");
-  burger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle("show");
-  });
-  document.addEventListener("click", (e) => {
-    if (!dropdown.contains(e.target) && !burger.contains(e.target)) dropdown.classList.remove("show");
-  });
-  dropdown.addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-act]");
-    if (!btn) return;
-    dropdown.classList.remove("show");
-    if (btn.dataset.act === "how") open("how-overlay");
-    if (btn.dataset.act === "qr") { open("qr-overlay"); loadQr(); }
-  });
-
   /* ---------- modals ---------- */
   function open(id) { $(id).classList.add("show"); }
   function close(id) { $(id).classList.remove("show"); }
   document.addEventListener("click", (e) => {
     const c = e.target.closest("[data-close]");
     if (c) close(c.dataset.close);
-    if (e.target.classList.contains("modal-overlay")) close(e.target.id);
+    if (e.target.classList && e.target.classList.contains("modal-overlay")) close(e.target.id);
   });
+  $("how-btn").addEventListener("click", () => open("how-overlay"));
+  $("qr-quick").addEventListener("click", () => open("qr-overlay"));
 
   /* ---------- countries ---------- */
   fetch("/countries.json")
     .then((r) => r.json())
     .then((list) => {
       countries = list;
-      renderCountries(list);
+      const sel = $("country");
+      sel.textContent = "";
+      const frag = document.createDocumentFragment();
+      list.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c.code;
+        opt.dataset.name = c.name;
+        opt.dataset.flag = c.flag;
+        opt.textContent = c.flag + "  " + c.name + " (" + c.code + ")";
+        if (c.code === "+254") opt.selected = true;
+        frag.appendChild(opt);
+      });
+      sel.appendChild(frag);
+      updatePreview();
     })
-    .catch(() => toast("Could not load the country list"));
-
-  function renderCountries(list) {
-    const el = $("country-list");
-    el.textContent = "";
-    const frag = document.createDocumentFragment();
-    list.forEach((c) => {
-      const row = document.createElement("div");
-      row.className = "country-option";
-      const flag = document.createElement("span");
-      flag.className = "flag";
-      flag.textContent = c.flag;
-      const name = document.createElement("span");
-      name.className = "cname";
-      name.textContent = c.name;
-      const code = document.createElement("span");
-      code.className = "ccode";
-      code.textContent = c.code;
-      row.append(flag, name, code);
-      row.addEventListener("click", () => selectCountry(c));
-      frag.appendChild(row);
+    .catch(() => {
+      $("country").innerHTML = '<option value="+254">Kenya (+254)</option>';
+      toast("Could not load the country list");
     });
-    el.appendChild(frag);
-  }
 
-  function selectCountry(c) {
-    selected = c;
-    $("country-display").textContent = c.flag + " " + c.name + " (" + c.code + ")";
-    $("prefix-display").textContent = c.code;
-    $("prefix-input").value = c.code;
-    close("country-overlay");
-    $("num-input").focus();
-  }
-
-  $("country-trigger").addEventListener("click", () => {
-    open("country-overlay");
-    $("country-search").value = "";
-    renderCountries(countries);
-    setTimeout(() => $("country-search").focus(), 120);
-  });
-
-  $("country-search").addEventListener("input", (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    renderCountries(
-      q
-        ? countries.filter((c) => c.name.toLowerCase().includes(q) || c.code.replace(/\D/g, "").includes(q.replace(/\D/g, "")))
-        : countries,
-    );
-  });
-
-  /* ---------- prefix box ---------- */
-  $("prefix-input").addEventListener("input", (e) => {
-    let v = e.target.value.replace(/[^0-9+]/g, "");
-    if (v && !v.startsWith("+")) v = "+" + v;
-    e.target.value = v;
-    $("prefix-display").textContent = v || "+";
-    if (v.length >= 2) {
-      const match = countries.find((c) => c.code === v);
-      if (match) {
-        selected = match;
-        $("country-display").textContent = match.flag + " " + match.name + " (" + match.code + ")";
-      }
-    }
-  });
+  $("country").addEventListener("change", updatePreview);
 
   /* ---------- keepalive + status ---------- */
   function startKeepAlive() {
@@ -365,8 +361,7 @@ input[type=text]:focus{border-color:var(--accent2)}
   }
 
   function setStatus(kind, text) {
-    const dot = $("status-dot");
-    dot.className = "dot " + kind;
+    $("status-dot").className = "dot " + kind;
     $("status-text").textContent = text;
     $("status-line").style.display = "flex";
   }
@@ -386,19 +381,18 @@ input[type=text]:focus{border-color:var(--accent2)}
       try {
         const r = await fetch("/status?id=" + encodeURIComponent(activeId));
         if (r.status === 404) {
-          // The service restarted (Render free plan) or the attempt expired.
-          // Without this the page waits on a socket that no longer exists,
-          // which looks exactly like the phone hanging on "Logging in…".
+          // The service restarted (free plan) or the attempt expired; without
+          // this the page waits on a socket that no longer exists.
           stopStatusPoll();
           stopKeepAlive();
-          setStatus("bad", "The server restarted and lost this attempt. Tap “Pair another number” and start again.");
+          setStatus("bad", "The server restarted and lost this attempt. Tap “Cancel” and start again.");
           return;
         }
         if (!r.ok) return;
         const j = await r.json();
         if (j.code && j.code !== shownCode) {
           shownCode = j.code;
-          const el = document.getElementById("code-text");
+          const el = $("code-text");
           if (el) {
             el.textContent = j.code;
             toast("New code issued — the previous one expired");
@@ -414,7 +408,7 @@ input[type=text]:focus{border-color:var(--accent2)}
           setStatus("ok", "Done. Your session ID is in your WhatsApp DM — send it to the Talkless bot with /pastsession.");
           stopStatusPoll();
           stopKeepAlive();
-          $("cancel-btn").textContent = "Pair another number";
+          $("cancel-btn").textContent = "PAIR ANOTHER NUMBER";
         }
         if (j.status === "failed") {
           setStatus("bad", j.reason || "Pairing failed. Try again.");
@@ -427,7 +421,7 @@ input[type=text]:focus{border-color:var(--accent2)}
 
   /* ---------- number assembly ---------- */
   /**
-   * Handles the three ways people actually type a number, because string
+   * Handles the three ways people actually type a number, because naive string
    * concatenation sent WhatsApp a wrong number and the code came back "wrong":
    *   +254 | 0712345678      -> trunk zero dropped        254712345678
    *   +254 | 254712345678    -> duplicate country stripped 254712345678
@@ -444,34 +438,35 @@ input[type=text]:focus{border-color:var(--accent2)}
   }
 
   function updatePreview() {
-    const full = buildNumber($("prefix-input").value, $("num-input").value);
+    const full = buildNumber($("country").value, $("num-input").value);
     const el = $("preview");
     if (!full) {
-      el.textContent = "";
+      el.innerHTML = "Enter the number without the leading zero or country code.";
       return;
     }
-    el.innerHTML = "Code will be sent for <b style=\"color:var(--accent2)\">+" + full + "</b>";
+    el.innerHTML = "Code will be sent for <b>+" + full + "</b>";
   }
   ["input", "change", "keyup"].forEach((ev) => {
     $("num-input").addEventListener(ev, updatePreview);
-    $("prefix-input").addEventListener(ev, updatePreview);
   });
 
   /* ---------- pairing ---------- */
   $("pair-btn").addEventListener("click", async () => {
-    const digits = buildNumber($("prefix-input").value, $("num-input").value);
+    const digits = buildNumber($("country").value, $("num-input").value);
     if (!digits) return toast("Enter your number with the country code");
     if (digits.length > 15) return toast("That number is too long");
 
     const btn = $("pair-btn");
+    const original = btn.textContent;
     btn.disabled = true;
-    btn.textContent = "Requesting…";
+    btn.textContent = "REQUESTING…";
 
     $("pair-setup").style.display = "none";
     $("pair-status").style.display = "block";
-    $("status-label").textContent = "Connecting";
+    $("status-label").textContent = "CONNECTING";
     $("status-body").innerHTML =
-      '<div class="spin" style="width:26px;height:26px;border-width:3px;margin:0 auto 14px;border-color:rgba(37,211,102,.25);border-top-color:#5ef2a0"></div><div class="hint">Requesting your pairing code…</div>';
+      '<div class="spinner"></div><div class="hint" style="text-align:center">Requesting your pairing code…</div>';
+    $("status-line").style.display = "none";
 
     try {
       const r = await fetch("/code?number=" + encodeURIComponent(digits));
@@ -480,11 +475,11 @@ input[type=text]:focus{border-color:var(--accent2)}
 
       activeId = j.id;
       shownCode = j.code || null;
-      $("status-label").textContent = "Your pairing code";
+      $("status-label").textContent = "YOUR PAIRING CODE";
       $("status-body").innerHTML =
         '<div class="code" id="code-text">' + j.code + "</div>" +
-        '<div class="hint" style="margin:-4px 0 12px">for <b style="color:var(--accent2)">+' + digits + "</b> — enter the code on that same phone</div>" +
-        '<button class="btn btn-ghost" id="copy-code" style="margin:0 auto 14px;max-width:220px">Copy code</button>' +
+        '<div class="hint" style="margin:-4px 0 12px;text-align:center">for <b>+' + digits + "</b> — enter the code on that same phone</div>" +
+        '<button class="btn btn-ghost" id="copy-code" type="button" style="max-width:240px;margin:0 auto">COPY CODE</button>' +
         '<ul class="steps">' +
         '<li><span class="n">1</span><span>WhatsApp → <b>Linked devices</b> → <b>Link with phone number</b></span></li>' +
         '<li><span class="n">2</span><span>Type <b>' + j.code + "</b></span></li>" +
@@ -501,12 +496,12 @@ input[type=text]:focus{border-color:var(--accent2)}
       startKeepAlive();
       pollStatus();
     } catch (err) {
-      $("status-label").textContent = "Could not start";
-      $("status-body").innerHTML = '<div class="hint" style="color:#ff8b8b">' + (err.message || "Request failed") + "</div>";
+      $("status-label").textContent = "COULD NOT START";
+      $("status-body").innerHTML = '<div class="error-text">' + (err.message || "Request failed") + "</div>";
       $("status-line").style.display = "none";
     } finally {
       btn.disabled = false;
-      btn.textContent = "Connect WhatsApp";
+      btn.textContent = original;
     }
   });
 
@@ -517,11 +512,13 @@ input[type=text]:focus{border-color:var(--accent2)}
     $("pair-status").style.display = "none";
     $("pair-setup").style.display = "block";
     $("status-line").style.display = "none";
-    $("cancel-btn").textContent = "Cancel";
+    $("cancel-btn").textContent = "CANCEL";
     $("num-input").value = "";
+    updatePreview();
   });
 
-  $("qr-btn").addEventListener("click", () => { open("qr-overlay"); });
+  /* ---------- QR ---------- */
+  $("qr-btn").addEventListener("click", () => open("qr-overlay"));
 
   function pollQr(id) {
     clearInterval(window.__qrTimer);
@@ -558,7 +555,7 @@ input[type=text]:focus{border-color:var(--accent2)}
 
   async function loadQr() {
     $("qr-load").disabled = true;
-    $("qr-load").textContent = "Loading…";
+    $("qr-load").textContent = "LOADING…";
     try {
       const r = await fetch("/qr");
       const j = await r.json();
@@ -575,7 +572,7 @@ input[type=text]:focus{border-color:var(--accent2)}
       $("qr-hint").textContent = "QR failed. Tap Load QR to try again.";
     } finally {
       $("qr-load").disabled = false;
-      $("qr-load").textContent = "Load QR";
+      $("qr-load").textContent = "LOAD QR";
     }
   }
   $("qr-load").addEventListener("click", loadQr);

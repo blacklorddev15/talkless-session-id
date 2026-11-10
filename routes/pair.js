@@ -174,8 +174,11 @@ router.get("/", async (req, res) => {
           }
           const sessionId = toSessionString(creds);
           const me = s.user?.id;
+          // 1) the session string alone, so it is a single tap-to-copy line
           await s.sendMessage(me, { text: sessionId }).catch(() => {});
-          await s.sendMessage(me, { text: instructionsText(sessionId) }).catch(() => {});
+          // 2) a beat later, the where-to-paste note — never the string again
+          await delay(900);
+          await s.sendMessage(me, { text: instructionsText() }).catch(() => {});
           board.set(id, { status: "delivered" });
         } catch (err) {
           console.error("[pair] handoff failed:", err?.message || err);

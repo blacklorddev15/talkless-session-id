@@ -9,19 +9,21 @@ used blurred and dimmed as the page background (`public/img/talkless.jpg`).
 
 ## What the bot accepts
 
-`talkless/src/helper/sessionId.js` strips code fences and any `<brand>!` token,
-then Base64-decodes and JSON-parses. So **all of these parse**:
+Every session this service emits starts with **`TALKLESS!`** — hardcoded, not
+configurable, so no other brand can be stamped on an outgoing session. The bot
+enforces the same rule on the way in:
 
 | Paste | Result |
 |---|---|
-| `TALKLESS!eyJub2lz…` | what this generator emits (default) |
-| `eyJub2lz…` | bare Base64 |
-| `Pixel!eyJ…` / `Blacklord!` / `Varnox!` | other brand prefixes |
-| ```` ```json\n eyJ… \n``` ```` | fenced Base64 |
-| `{"creds":{…}}` or a raw `creds.json` | parsed as JSON |
+| `TALKLESS!eyJub2lz…` | accepted — the only accepted prefix |
+| `eyJub2lz…` | accepted (bare Base64) |
+| `{"creds":{…}}` or a raw `creds.json` | accepted |
+| ```` ```json\n TALKLESS!eyJ… \n``` ```` | accepted (fences stripped) |
+| `Pixel!` / `Blacklord!` / `Varnox!` / `Astro!` | **rejected** — "only TALKLESS! sessions are accepted" |
+| any other `<word>!` | **rejected** — unknown prefix |
 
-Set `SESSION_PREFIX=` (empty) to emit bare Base64, or any other token to change
-the label. The prefix is cosmetic — it does not change the payload.
+The prefix is cosmetic for decoding but it is a hard gate: the bot will not
+import a session wearing another product's name.
 
 Only `creds.me.id` is mandatory for the bot; missing `noiseKey` /
 `signedIdentityKey` / `signedPreKey` / `advSecretKey` / `registered` is reported
@@ -105,7 +107,6 @@ Add env vars if you want to override the defaults:
 | Variable | Default | Meaning |
 |----------|---------|---------|
 | `BOT_NAME` | `TALKLESS ULTRA` | Shown on the page and in the DM |
-| `SESSION_PREFIX` | `TALKLESS!` | Prefix before the Base64 payload; empty = bare Base64 |
 | `MAX_ACTIVE` | `4` | Concurrent pairing sockets (free 512 MB dies above ~5) |
 | `PER_IP` | `3` | Pairing attempts per IP |
 | `WINDOW_MS` | `600000` | Rate-limit window (10 min) |
