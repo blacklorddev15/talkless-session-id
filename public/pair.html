@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090817">
+<title>TALKLESS TECH · Pairing Code System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#ffd36a;--cyan:#4ceaff;--purple:#a56bff;--pink:#ff63d5;
+  --goldfish:#ff9b45;--diamond:#eaf7ff;--ice:#a9dfff;
+  --silver:#c9d2dc;--platinum:#eef2f6;--steel:#718096;
+  --ok:#33d488;--warn:#ffce54;--bad:#ff7b7b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{
+  color:#f7f5ff;font-family:Inter,Arial,sans-serif;min-height:100vh;overflow-x:hidden;
+  display:flex;align-items:center;justify-content:center;padding:28px 16px;
+  background-color:#080b16;
+  background-image:
+    linear-gradient(125deg,#05081370,#0b102b72),
+    url('https://files.catbox.moe/5m71wh.png'),
+    url('/img/talkless.jpg');
+  background-position:center;background-size:cover;background-attachment:fixed;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 18%,#ffb14a55,transparent 29%),
+    radial-gradient(circle at 88% 18%,#f7fdff55,transparent 27%),
+    radial-gradient(circle at 90% 82%,#aab8c944,transparent 31%),
+    radial-gradient(circle at 52% 48%,#8c42ff25,transparent 55%);
+}
+.wrap{width:min(100%,720px);position:relative;z-index:1}
+
+/* ── header ─────────────────────────────────────────────── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.brand{font:800 clamp(16px,2.5vw,20px) Orbitron,sans-serif;letter-spacing:2px}
+.brand b{background:linear-gradient(90deg,#fff1b8,#ffad55,#fff,#c7d3e0);background-clip:text;-webkit-background-clip:text;color:transparent}
+.pill{font:700 9px Orbitron,sans-serif;letter-spacing:1px;color:#ffe8a7;border:1px solid #ffd36a77;border-radius:30px;padding:9px 12px;background:#2a1b0b99;white-space:nowrap}
+
+/* ── hero ───────────────────────────────────────────────── */
+.hero{text-align:center;margin-bottom:28px}
+.kicker{display:inline-block;padding:8px 13px;border-radius:30px;border:1px solid #4ceaff77;background:#071d30bb;color:#a6f4ff;font:700 9px Orbitron,sans-serif;letter-spacing:1.5px}
+h1{font:800 clamp(32px,7.5vw,58px)/1.18 Orbitron,sans-serif;letter-spacing:-2px;margin:18px auto 12px;max-width:680px;text-wrap:balance}
+h1 span{display:inline-block;background:linear-gradient(90deg,#fff0b0,#ffd05c,#bb83ff,#4ceaff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.desc{color:#c2c8e1;font-size:13px;line-height:1.7;max-width:490px;margin:auto}
+
+/* ── panel ──────────────────────────────────────────────── */
+.panel{
+  position:relative;padding:clamp(22px,5vw,38px);border-radius:25px;
+  background:linear-gradient(145deg,#101827e8,#17162fe0) padding-box,
+             linear-gradient(130deg,#ffad55,#fff0b8,#f8fdff,#9ba9bb,#a56bff) border-box;
+  border:1px solid transparent;backdrop-filter:blur(14px);overflow:hidden;
+  box-shadow:0 25px 80px #000b,0 0 42px #eaf7ff24;
+}
+.panel:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#ff9b45,#ffd36a,#fff,#b9c5d3,#f8fdff,#a56bff)}
+.panel-head{display:flex;align-items:center;gap:13px;margin-bottom:25px}
+.icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:21px;color:#1b1224;background:linear-gradient(135deg,#fff7d6,#ffad55 42%,#f8fdff 76%,#aebdce);box-shadow:0 8px 24px #eaf7ff35;flex-shrink:0}
+.panel-head h2{font:700 clamp(15px,3vw,19px)/1.35 Orbitron,sans-serif;letter-spacing:1px}
+.panel-head p{font-size:11px;color:#aebbd8;margin-top:4px}
+label{display:block;font:800 11px Orbitron,sans-serif;letter-spacing:1.3px;color:#e8eaff;margin:0 0 9px}
+.phone-row{display:grid;grid-template-columns:minmax(135px,.85fr) 1.5fr;gap:10px;align-items:stretch}
+select,input{width:100%;height:55px;border-radius:13px;color:#fff;padding:0 14px;font:600 14px Inter,sans-serif;outline:none;
+  border:1px solid #c5d1dfaa;background:linear-gradient(120deg,#0a1025ee,#1b2132ee);
+  box-shadow:inset 0 2px 9px #0007,0 0 0 1px #ffffff08}
+select{cursor:pointer;appearance:none;
+  background-image:linear-gradient(120deg,#0a1025ee,#1b2132ee),linear-gradient(45deg,transparent 50%,#c9d2dc 50%),linear-gradient(135deg,#c9d2dc 50%,transparent 50%);
+  background-position:0 0,calc(100% - 19px) 24px,calc(100% - 13px) 24px;
+  background-size:100% 100%,6px 6px,6px 6px;background-repeat:no-repeat}
+select:focus,input:focus{border-color:#f8fdff;box-shadow:0 0 0 4px #eaf7ff25}
+input::placeholder{color:#7885a5}
+.hint{font-size:11px;color:#9eaccb;line-height:1.6;margin:10px 0 18px}
+.hint b{color:#f8fdff}
+button{font-family:inherit}
+.btn,.copy{
+  width:100%;height:55px;border-radius:13px;cursor:pointer;border:1px solid #ffffff35;
+  color:#111827;font:800 clamp(10px,2vw,12px) Orbitron,sans-serif;letter-spacing:1.5px;text-shadow:0 1px #ffffff70;
+  background:linear-gradient(105deg,#ff9b45 0%,#d9b45e 27%,#aebdce 55%,#f8fdff 78%,#a56bff 100%);
+  box-shadow:0 12px 30px #c8d4e544,inset 0 1px 0 #fff;transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none;filter:none}
+.btn:focus-visible,.link:focus-visible,select:focus-visible,input:focus-visible,.copy:focus-visible,button:focus-visible{outline:3px solid #ffe39a;outline-offset:3px}
+.btn-ghost{margin-top:10px;height:50px;color:#eef2f6;background:linear-gradient(120deg,#1b2233ee,#2a2440ee);border:1px solid #c5d1df66;text-shadow:none;box-shadow:0 8px 20px #0004}
+.btn-ghost:hover{border-color:#eaf7ff99}
+
+/* ── status / code ──────────────────────────────────────── */
+#pair-status{display:none}
+.card-label{display:block;font:800 11px Orbitron,sans-serif;letter-spacing:1.3px;color:#fff0b8;margin-bottom:14px}
+.code-box{text-align:center;padding:6px 0 4px}
+.code{font:800 clamp(20px,6vw,28px) Orbitron,sans-serif;letter-spacing:5px;color:#f8fdff;text-shadow:0 0 18px #dbeeff88;word-break:break-word;margin:9px 0}
+.spinner{width:26px;height:26px;border-radius:50%;margin:0 auto 14px;border:3px solid #eaf7ff26;border-top-color:#f8fdff;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.steps{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:9px;text-align:left}
+.steps li{display:flex;gap:10px;font-size:12px;color:#c2c8e1;line-height:1.55}
+.steps b{color:#fff}
+.steps .n{flex-shrink:0;width:19px;height:19px;border-radius:50%;background:#ffd36a22;border:1px solid #ffd36a66;color:#ffe9b0;font:700 10px Orbitron,sans-serif;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.status-line{display:none;align-items:center;gap:9px;justify-content:center;font-size:12px;color:#c2c8e1;margin-top:16px;padding-top:14px;border-top:1px solid #ffffff1f;text-align:center}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot.amber{background:var(--warn);animation:blink 1.6s infinite}
+.dot.ok{background:var(--ok)}
+.dot.bad{background:var(--bad)}
+@keyframes blink{0%,100%{opacity:.4}50%{opacity:1}}
+.error-text{color:#ff9d9d;font-size:12px;line-height:1.6;text-align:center}
+
+/* ── inline actions ─────────────────────────────────────── */
+.mini-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.mini{background:none;border:1px dashed #c5d1df66;border-radius:11px;color:#cfd8e6;font:700 9px Orbitron,sans-serif;letter-spacing:1px;padding:11px 8px;cursor:pointer;transition:.15s}
+.mini:hover{border-color:#eaf7ffaa;color:#fff;background:#ffffff08}
+.stat-line{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;font-size:11px;color:#9eaccb}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 #33d48899;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #33d4888c}70%{box-shadow:0 0 0 7px #33d48800}100%{box-shadow:0 0 0 0 #33d48800}}
+
+/* ── links / footer ─────────────────────────────────────── */
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px;align-items:stretch}
+.link{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:14px 12px;border-radius:12px;text-decoration:none;
+  color:#fff1c5;border:1px solid #eaf7ff99;background:linear-gradient(120deg,#272015dd,#202b3ddd);
+  font:800 10px Orbitron,sans-serif;letter-spacing:.6px;line-height:1.45;text-align:center;box-shadow:0 8px 20px #0004;transition:transform .2s,filter .2s}
+.link:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.link.main{color:#f8fdff;border-color:#d9e8f7;background:linear-gradient(120deg,#182d42dd,#2b2440dd)}
+.foot{text-align:center;color:#9ca8c4;font-size:9px;line-height:1.7;margin:20px auto 0;max-width:560px}
+.foot b{color:#fff0b8}
+
+/* ── welcome loader ─────────────────────────────────────── */
+#welcomeLoader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;
+  background:radial-gradient(circle at 50% 35%,#38224ddd,#080817f5 72%),url('https://files.catbox.moe/5m71wh.png') center/cover,#080817;
+  transition:opacity .45s ease,visibility .45s ease}
+#welcomeLoader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-card{text-align:center;width:min(100%,390px);padding:34px 24px;border:1px solid #eaf7ff66;border-radius:24px;background:linear-gradient(145deg,#17152bdc,#21152fe0);box-shadow:0 20px 70px #0009,0 0 35px #ff9b4530;backdrop-filter:blur(16px)}
+.loader-mark{width:68px;height:68px;margin:0 auto 19px;border-radius:21px;display:grid;place-items:center;font:800 27px Orbitron,sans-serif;color:#211326;background:linear-gradient(135deg,#fff0b0,#ff9b45 55%,#eaf7ff);box-shadow:0 0 30px #ffb45a55}
+.loader-title{font:800 20px Orbitron,sans-serif;letter-spacing:1.3px;color:#fff;margin-bottom:8px}
+.loader-title span{background:linear-gradient(90deg,#ffb45a,#fff0b0,#eaf7ff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.loader-sub{font:600 9px Orbitron,sans-serif;letter-spacing:2px;color:#c9d9ee}
+.loader-track{height:4px;border-radius:20px;background:#ffffff20;margin:23px 0 0;overflow:hidden}
+.loader-progress{height:100%;width:0;background:linear-gradient(90deg,#ff9b45,#a56bff,#eaf7ff);animation:loadbar 2s ease forwards}
+@keyframes loadbar{to{width:100%}}
+
+/* ── modals ─────────────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9000;background:#05060fb8;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-panel{width:100%;max-width:460px;max-height:84vh;overflow-y:auto;padding:22px;border-radius:22px;
+  background:linear-gradient(145deg,#11162ef2,#1a1730f2) padding-box,linear-gradient(130deg,#ffad55,#fff0b8,#f8fdff,#9ba9bb,#a56bff) border-box;
+  border:1px solid transparent;box-shadow:0 25px 80px #000c}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+.modal-title{font:700 15px Orbitron,sans-serif;letter-spacing:.8px;color:#fff}
+.modal-close{background:#ffffff12;border:1px solid #ffffff22;color:#f8fdff;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+.modal-close:hover{background:#ffffff22}
+.qr-wrap{text-align:center}
+.qr-wrap img{background:#fff;padding:10px;border-radius:14px;width:240px;height:240px;display:none;margin:0 auto 12px}
+.note{margin-top:14px;font-size:11px;color:#9ca8c4;line-height:1.6;text-align:center}
+
+/* ── toast ──────────────────────────────────────────────── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(120deg,#1b2233f2,#2a2440f2);border:1px solid #eaf7ff77;color:#f8fdff;padding:12px 20px;border-radius:12px;font-size:12px;z-index:9999;display:none;max-width:90%;text-align:center;box-shadow:0 10px 30px #0007}
+
+@media(max-width:520px){
+  .top{align-items:flex-start}
+  .brand{font-size:15px}
+  .pill{font-size:8px;padding:8px 10px}
+  h1{font-size:clamp(29px,8vw,42px);letter-spacing:-1.2px}
+  .phone-row{grid-template-columns:minmax(0,1fr)}
+  .links{grid-template-columns:1fr}
+  .link{min-height:50px}
+  .mini-actions{grid-template-columns:1fr}
+  .panel{border-radius:20px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#welcomeLoader{transition:none}}
+
+/* ── result box (pairing-code variant) ──────────────────── */
+.result{display:none;margin-top:18px;padding:16px;border:1px solid #eaf7ff99;border-radius:14px;background:linear-gradient(120deg,#201b16ee,#111a2bee);color:#f6edcf;font-size:12px;line-height:1.6;box-shadow:0 10px 30px #0005}
+.result.show{display:block;animation:rise .3s ease}
+.result strong{display:block;color:#fff0b8;font:800 10px Orbitron,sans-serif;letter-spacing:1px;margin-bottom:6px}
+.copy{height:39px;margin-top:9px;border-radius:11px;background:linear-gradient(100deg,#ff9b45,#e4c77e,#c5d0dc,#f8fdff);color:#111827;border:1px solid #ffffff35;font:800 10px Orbitron,sans-serif;letter-spacing:1.2px;cursor:pointer;text-shadow:0 1px #ffffff70}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#requestBtn{margin-top:0}
+</style>
+</head>
+<body>
+
+<div id="welcomeLoader" role="status" aria-live="polite" aria-label="Initializing TALKLESS TECH Pairing Code System">
+  <div class="loader-card">
+    <div class="loader-mark">TX</div>
+    <div class="loader-title">WELCOME TO <span>TALKLESS TECH PAIRING</span></div>
+    <div class="loader-sub">INITIALIZING TALKLESS TECH SYSTEM</div>
+    <div class="loader-track"><div class="loader-progress"></div></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="top">
+    <div class="brand">TALKLESS <b>TECH</b></div>
+    <div class="pill">OFFICIAL PAIRING SYSTEM</div>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">SECURE DEVICE CONNECTION</div>
+    <h1><span>TALKLESS PAIRING</span><br>CODE SYSTEM</h1>
+    <p class="desc">Enter your WhatsApp number and country code to request your TALKLESS TECH pairing code.</p>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div class="icon">⌁</div>
+      <div>
+        <h2>PHONE NUMBER PAIRING</h2>
+        <p>Request a one-time device pairing code</p>
+      </div>
+    </div>
+
+    <form id="pairForm" novalidate>
+      <label for="country">COUNTRY CODE</label>
+      <div class="phone-row">
+        <select id="country" aria-label="Country calling code">
+          <option value="">Loading…</option>
+        </select>
+        <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national"
+               placeholder="e.g. 712345678" maxlength="15" aria-label="WhatsApp number">
+      </div>
+      <p class="hint" id="preview">Enter the phone number without the leading zero or country code. Example: for Kenya, enter 712345678.</p>
+      <button id="requestBtn" type="submit" class="btn">GENERATE PAIRING CODE&nbsp; →</button>
+    </form>
+
+    <div class="result" id="result" role="status" aria-live="polite"></div>
+
+    <div class="stat-line"><span class="pulse-dot"></span><span id="online-count">—</span>&nbsp;pairing now</div>
+  </section>
+
+  <nav class="links" aria-label="Talkless websites">
+    <a class="link" href="/">⌁ SESSION ID GENERATOR</a>
+    <a class="link main" href="https://www.talkless.co.ke" target="_blank" rel="noopener noreferrer">⌂ TALKLESS TECH WEBSITE</a>
+  </nav>
+
+  <p class="foot"><b>Keep your pairing code private.</b> Only enter it in the official WhatsApp device-linking flow. Your session ID arrives in your own WhatsApp afterwards.</p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+  /* Absolute URL = external pairing API taking {countryCode, phoneNumber} JSON.
+     Empty or relative = this app's own /code endpoint. No secrets belong here. */
+  const PAIRING_API_URL = "";
+  const $ = (id) => document.getElementById(id);
+
+  let activeId = null;
+  let statusTimer = null;
+  let keepTimer = null;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    window.setTimeout(() => $("welcomeLoader")?.classList.add("hide"), 2000);
+  });
+
+  let toastTimer;
+  function toast(msg) {
+    const el = $("toast");
+    el.textContent = msg; el.style.display = "block";
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => (el.style.display = "none"), 2600);
+  }
+
+  /* ── countries (single source: /countries.json) ── */
+  fetch("/countries.json").then((r) => r.json()).then((list) => {
+    const sel = $("country");
+    sel.textContent = "";
+    const frag = document.createDocumentFragment();
+    list.forEach((c) => {
+      const opt = document.createElement("option");
+      opt.value = c.code;
+      opt.textContent = c.flag + "  " + c.name + " (" + c.code + ")";
+      if (c.code === "+254") opt.selected = true;
+      frag.appendChild(opt);
+    });
+    sel.appendChild(frag);
+    updatePreview();
+  }).catch(() => {
+    $("country").innerHTML = '<option value="+254">Kenya (+254)</option>';
+  });
+
+  /* ── number assembly (same rules as the session page) ── */
+  function buildNumber(prefixRaw, localRaw) {
+    const cc = String(prefixRaw).replace(/\D/g, "");
+    let local = String(localRaw).replace(/\D/g, "");
+    if (!cc || !local) return "";
+    if (local.startsWith(cc) && local.length > cc.length + 5) local = local.slice(cc.length);
+    local = local.replace(/^0+/, "");
+    const full = cc + local;
+    return full.length >= 8 ? full : "";
+  }
+
+  function updatePreview() {
+    const full = buildNumber($("country").value, $("phone").value);
+    $("preview").innerHTML = full
+      ? "Code will be sent for <b>+" + full + "</b>"
+      : "Enter the phone number without the leading zero or country code. Example: for Kenya, enter 712345678.";
+  }
+  ["input", "change", "keyup"].forEach((ev) => $("phone").addEventListener(ev, updatePreview));
+  $("country").addEventListener("change", updatePreview);
+
+  /* ── keepalive + polling ── */
+  function startKeepAlive() {
+    stopKeepAlive();
+    const ping = () => fetch("/keepalive").catch(() => {});
+    ping(); keepTimer = setInterval(ping, 20000);
+  }
+  function stopKeepAlive() { if (keepTimer) clearInterval(keepTimer); keepTimer = null; }
+  function stopPoll() { if (statusTimer) clearInterval(statusTimer); statusTimer = null; }
+
+  function footNote(text) {
+    const el = $("pair-state");
+    if (el) el.textContent = text;
+  }
+
+  function poll() {
+    stopPoll();
+    if (!activeId) return;
+    let ticks = 0;
+    statusTimer = setInterval(async () => {
+      if (++ticks > 100) return stopPoll();
+      try {
+        const r = await fetch("/status?id=" + encodeURIComponent(activeId));
+        if (r.status === 404) {
+          stopPoll(); stopKeepAlive();
+          footNote("The server restarted and lost this attempt. Request a new code.");
+          return;
+        }
+        if (!r.ok) return;
+        const j = await r.json();
+        if (j.status === "paired") footNote("Approved — preparing your session…");
+        if (j.status === "delivered") {
+          stopPoll(); stopKeepAlive();
+          footNote("Done. Your session ID is in your WhatsApp — send it to the bot with /pastsession.");
+          $("requestBtn").textContent = "REQUEST ANOTHER CODE →";
+        }
+        if (j.status === "failed") {
+          stopPoll(); stopKeepAlive();
+          footNote(j.reason || "Pairing failed. Try again.");
+        }
+      } catch {}
+    }, 3000);
+  }
+
+  /* ── submit ── */
+  $("pairForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const digits = buildNumber($("country").value, $("phone").value);
+    const result = $("result");
+    const btn = $("requestBtn");
+
+    result.classList.remove("show");
+    if (!digits) { toast("Enter your number with the country code"); return; }
+    if (digits.length > 15) { toast("That number is too long"); return; }
+
+    btn.disabled = true;
+    btn.textContent = "REQUESTING CODE…";
+    result.innerHTML = "<strong>REQUESTING PAIRING CODE</strong>Contacting the pairing service securely…";
+    result.classList.add("show");
+
+    try {
+      const external = /^https?:\/\//i.test(PAIRING_API_URL);
+      const response = external
+        ? await fetch(PAIRING_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ countryCode: $("country").value, phoneNumber: digits }),
+          })
+        : await fetch("/code?number=" + encodeURIComponent(digits));
+
+      const data = await response.json();
+      if (!response.ok || data.ok === false) throw new Error(data.error || data.message || "Pairing request failed.");
+
+      const code = String(data.code || data.pairingCode || "");
+      if (!code) throw new Error(data.message || "The service did not return a pairing code.");
+      activeId = data.id || null;
+
+      result.innerHTML =
+        "<strong>TALKLESS TECH PAIRING · BOT GENERATED CODE</strong>" +
+        '<div class="code">' + code + "</div>" +
+        "<div>Use this code in the official WhatsApp device-linking flow for <b>+" + digits + "</b>.</div>" +
+        '<button class="copy" id="copyCode" type="button">COPY GENERATED BOT CODE</button>' +
+        '<div class="hint" id="pair-state" style="margin:10px 0 0">WhatsApp → Linked devices → Link with phone number.</div>';
+
+      $("copyCode").addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(code); $("copyCode").textContent = "BOT CODE COPIED ✓"; }
+        catch { $("copyCode").textContent = "COPY NOT AVAILABLE"; }
+      });
+
+      if (activeId) { startKeepAlive(); poll(); }
+    } catch (error) {
+      result.innerHTML = "<strong>PAIRING REQUEST FAILED</strong>" +
+        String(error.message || "Unable to reach the pairing service.").replace(/[<>&"]/g, "");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "GENERATE PAIRING CODE →";
+    }
+  });
+
+  /* ── live count ── */
+  async function count() {
+    try {
+      const r = await fetch("/keepalive");
+      const j = await r.json();
+      $("online-count").textContent = j.active ?? 0;
+    } catch { $("online-count").textContent = "—"; }
+  }
+  count();
+  setInterval(count, 15000);
+})();
+</script>
+</body>
+</html>
