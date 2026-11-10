@@ -4,8 +4,9 @@ Landing page that pairs a WhatsApp number and hands back a session ID in the
 exact shape the **Talkless** telegram bot accepts. Country picker with 195 dial
 codes, an 8-character pairing code, a QR fallback, live pairing status.
 
-Branded for TALKLESS ULTRA: the bot artwork is the hero, and the same image is
-used blurred and dimmed as the page background (`public/img/talkless.jpg`).
+Branded for TALKLESS ULTRA. The page background is the official artwork,
+`https://files.catbox.moe/5m71wh.png`, dimmed under a gradient; no local image is
+shipped, so the look updates by swapping that one URL.
 
 ## What the bot accepts
 
@@ -42,7 +43,9 @@ The session is never returned over HTTP — only to the account that paired.
 
 ## Wiring it to the bot
 
-The DM tells the user to send the string to the Talkless bot with `/pastsession`
+The DM carries the three official links — website, pair-direct and
+`pair.talkless.co.ke/session` for pasting the string — and the bot accepts it via
+`/pastsession`
 (or the 💾 **𝑷𝑨𝑺𝑻𝑬 𝑺𝑬𝑺𝑺𝑰𝑶𝑵 𝑰𝑫** keyboard button). The bot then writes
 `sessions/wa_<telegramId>_<phone>/creds.json` and connects immediately — no QR,
 no second pairing code, no `.env` editing.

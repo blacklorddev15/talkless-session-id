@@ -84,6 +84,7 @@ app.get("/healthz", (req, res) =>
 
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 app.get("/pair", (req, res) => res.sendFile(path.join(__dirname, "public", "pair.html")));
+app.get("/session", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 
 app.use((req, res) => res.status(404).json({ ok: false, error: "Not found" }));
 

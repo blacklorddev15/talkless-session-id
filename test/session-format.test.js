@@ -35,18 +35,17 @@ const out3 = renamed.toSessionString(CREDS);
 assert.ok(out3.startsWith('Talkless!'), 'SESSION_PREFIX=PIXEL! must be ignored');
 assert.ok(!out3.startsWith('PIXEL!'), 'no foreign prefix emitted');
 
-// 3) instructions describe the Telegram paste flow, not .env
+// 3) instructions carry the three official links, never .env
 const text = def.instructionsText();
-assert.ok(text.includes('/pastsession'), 'mentions /pastsession');
 assert.ok(!/\.env/.test(text), 'no .env instruction');
 assert.ok(!/SESSION_ID/.test(text), 'no SESSION_ID env var instruction');
 assert.ok(text.includes('TALKLESS ULTRA'), 'branded');
 assert.ok(!text.includes(out), 'second message must not repeat the session string');
 assert.ok(!text.includes(payload), 'second message must not repeat the Base64 payload');
 assert.ok(!text.includes('Talkless!'), 'no session prefix leaked into the instructions');
-assert.ok(text.includes('pair.talkless.co.ke'), 'points at the paste site');
-assert.ok(text.includes('www.talkless.co.ke'), 'points at the direct-pair site');
-assert.ok(/Paste Session URL|Paste Session ID/i.test(text), 'names the paste action');
+assert.ok(text.includes('https://www.talkless.co.ke'), 'links the official website');
+assert.ok(text.includes('https://pair.talkless.co.ke'), 'links pair-direct');
+assert.ok(text.includes('https://pair.talkless.co.ke/session'), 'links the paste-your-session page');
 
 // 4) nothing left over from the previous brand
 const all = out + text;
